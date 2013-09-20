@@ -6,7 +6,7 @@
 ## Installation
 
 1. Simply drop this into your WordPress __plugins__ folder
-2. Active the plugin from within WordPress
+2. Activate the plugin from within WordPress
 
 ## What does it do?
 
