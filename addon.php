@@ -1,9 +1,7 @@
 <?php
 /*
 Plugin Name: Train-up! Fill-in-the-blanks questions
-Plugin URI: http://wptrainup.co.uk/
 Description: Addon that enables a new type of question, for which trainees are required to fill in the blanks in a sentence
-Author: @amk221
 Version: 0.0.2
 License: GPL2
 */
@@ -39,9 +37,9 @@ class Fill_in_the_blanks_questions_addon {
   /**
    * __construct
    *
-   * Listen to the filters that the Train-Up! plugin provides, and latch on, 
+   * Listen to the filters that the Train-Up! plugin provides, and latch on,
    * inserting the new functionality where needed.
-   * 
+   *
    * @access public
    */
   public function __construct() {
@@ -61,9 +59,9 @@ class Fill_in_the_blanks_questions_addon {
   /**
    * _add_type
    *
-   * - Callback for when retrieving the hash of question types. 
+   * - Callback for when retrieving the hash of question types.
    * - Insert our new 'fill_in_the_blanks' question type.
-   * 
+   *
    * @param mixed $types
    *
    * @access public
@@ -81,7 +79,7 @@ class Fill_in_the_blanks_questions_addon {
    *
    * - Callback for when the meta boxes are defined for Question admin screens
    * - Define one for our custom Question type: fill_in_the_blanks
-   * 
+   *
    * @param mixed $meta_boxes
    *
    * @access public
@@ -105,7 +103,7 @@ class Fill_in_the_blanks_questions_addon {
    *   'fill_in_the_blanks' meta box is to be rendered.
    * - Echo out the view that tells the user how to use this Question Type.
    *   there is no functionality in this box.
-   * 
+   *
    * @access public
    */
   public function _meta_box() {
@@ -119,7 +117,7 @@ class Fill_in_the_blanks_questions_addon {
    * - Search the post's content for fill in the blank shortcodes.
    *   pull out the correct="" attribute which will contain the correct answer
    * - Update the Question's correct answer so that is can be validated.
-   * 
+   *
    * @param mixed $question
    *
    * @access public
@@ -149,7 +147,7 @@ class Fill_in_the_blanks_questions_addon {
    *
    * - Fired when an fill_in_the_blanks question is validated
    * - Compare the array of answers that user entered, to the known blanks
-   * 
+   *
    * @param mixed $correct Whether or not the answer is correct
    * @param mixed $users_answer The user's attempted answer
    * @param mixed $question The question this answer is for
@@ -162,7 +160,7 @@ class Fill_in_the_blanks_questions_addon {
     $correct        = true;
     $users_answers  = array_values((array)$users_answer);
     $actual_answers = array_values($question->get_answers());
-    
+
     for ($i = 0, $l = count($actual_answers); $i < $l; $i++) {
       if ($users_answers[$i] != $actual_answers[$i]) {
         $correct = false;
@@ -178,7 +176,7 @@ class Fill_in_the_blanks_questions_addon {
    *
    * When a Fill-in-the-blanks question is rendered, wrap it in a form, so that
    * the form inputs (the blanks) can get submitted.
-   * 
+   *
    * @param mixed $content
    *
    * @access public
@@ -197,7 +195,7 @@ class Fill_in_the_blanks_questions_addon {
 
   /**
    * _render_answers
-   * 
+   *
    * @param mixed $content Description.
    *
    * @access public
@@ -216,11 +214,11 @@ class Fill_in_the_blanks_questions_addon {
    * - Fired when the title of a Fill-in-the-blanks question is retreived
    * - Instead of returning just a small substring of the post content
    *   return the post content with the blanks filled. This is more useful.
-   * - Temporarily override the question_blank shortcode so we can do 
+   * - Temporarily override the question_blank shortcode so we can do
    *   different swaps.
    * - Hack to pass the current question into the shortcode callback - use
    *   globals. Could use closures, but want to keep support good.
-   * 
+   *
    * @param mixed $title
    * @param mixed $question
    *
@@ -251,10 +249,10 @@ class Fill_in_the_blanks_questions_addon {
    *   are run against it. Swap the shortcodes (fill in the blanks) with the
    *   user's answers. Or, if we are in the backend, we won't know the current
    *   user's answers so just show blanks.
-   * - Note: This function is not your standard WordPress-callback for a 
-   *   shortcode, it is fired from a closure which passes in the current 
+   * - Note: This function is not your standard WordPress-callback for a
+   *   shortcode, it is fired from a closure which passes in the current
    *   question.
-   * 
+   *
    * @param array $attributes
    * @param string $content
    * @param object $question
@@ -290,7 +288,7 @@ class Fill_in_the_blanks_questions_addon {
    * - Callback for when a [question_blank correct=""] shortcode is used
    * - Load the current user's attempted answers to the current question
    * - Swap them in to the blanks so that they can change their mind.
-   * 
+   *
    * @param mixed $attributes
    * @param mixed $content
    *
@@ -323,6 +321,6 @@ class Fill_in_the_blanks_questions_addon {
 
 }
 
-add_action('plugins_loaded', function() { 
+add_action('plugins_loaded', function() {
   new Fill_in_the_blanks_questions_addon;
 });
